@@ -36,7 +36,7 @@ const Services = () => {
       <section className="min-h-screen bg-black text-gray-200">
         {/* Hero Banner */}
         <div className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black z-10" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/50 via-black/30 to-black z-10" />
           <img
             src={service.images.hero}
             alt={service.title}
@@ -70,7 +70,7 @@ const Services = () => {
           {service.images.supporting[0] && (
             <div className="mb-16">
               <div className="relative group rounded-2xl overflow-hidden shadow-2xl">
-                <div className="absolute -inset-1 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
+                <div className="absolute -inset-1 bg-linear-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
                 <img
                   src={service.images.supporting[0]}
                   alt={`${service.title} - Detail 1`}
@@ -93,7 +93,7 @@ const Services = () => {
           {service.images.supporting[1] && service.images.supporting[2] && (
             <div className="grid md:grid-cols-2 gap-8 mb-16">
               <div className="relative group rounded-2xl overflow-hidden shadow-xl">
-                <div className="absolute -inset-1 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
+                <div className="absolute -inset-1 bg-linear-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
                 <img
                   src={service.images.supporting[1]}
                   alt={`${service.title} - Detail 2`}
@@ -101,7 +101,7 @@ const Services = () => {
                 />
               </div>
               <div className="relative group rounded-2xl overflow-hidden shadow-xl">
-                <div className="absolute -inset-1 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
+                <div className="absolute -inset-1 bg-linear-to-br from-lime-400 to-lime-600 rounded-2xl opacity-20 group-hover:opacity-30 blur-lg transition-opacity duration-500" />
                 <img
                   src={service.images.supporting[2]}
                   alt={`${service.title} - Detail 3`}
@@ -130,7 +130,7 @@ const Services = () => {
             </h3>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <div className="flex items-start gap-4">
-                <CheckCircle2 className="w-6 h-6 text-lime-400 flex-shrink-0 mt-1" />
+                <CheckCircle2 className="w-6 h-6 text-lime-400 shrink-0 mt-1" />
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-2">
                     Expert Team
@@ -142,7 +142,7 @@ const Services = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <CheckCircle2 className="w-6 h-6 text-lime-400 flex-shrink-0 mt-1" />
+                <CheckCircle2 className="w-6 h-6 text-lime-400 shrink-0 mt-1" />
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-2">
                     Tailored Solutions
@@ -154,7 +154,7 @@ const Services = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <CheckCircle2 className="w-6 h-6 text-lime-400 flex-shrink-0 mt-1" />
+                <CheckCircle2 className="w-6 h-6 text-lime-400 shrink-0 mt-1" />
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-2">
                     Proven Methodologies
@@ -166,7 +166,7 @@ const Services = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <CheckCircle2 className="w-6 h-6 text-lime-400 flex-shrink-0 mt-1" />
+                <CheckCircle2 className="w-6 h-6 text-lime-400 shrink-0 mt-1" />
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-2">
                     Ongoing Support
@@ -181,7 +181,7 @@ const Services = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="text-center bg-gradient-to-r from-lime-500/10 to-lime-600/10 rounded-2xl p-12 border border-lime-500/20">
+          <div className="text-center bg-linear-to-r from-lime-500/10 to-lime-600/10 rounded-2xl p-12 border border-lime-500/20">
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Ready to Get Started?
             </h3>

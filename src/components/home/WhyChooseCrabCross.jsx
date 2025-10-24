@@ -8,7 +8,7 @@ const WhyChooseCrabCross = () => {
         {/* Left image */}
         <div className="w-full lg:w-1/2">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl opacity-40 group-hover:opacity-50 blur-lg transition-opacity duration-500" />
+            <div className="absolute -inset-1 bg-linear-to-br from-lime-400 to-lime-600 rounded-2xl opacity-40 group-hover:opacity-50 blur-lg transition-opacity duration-500" />
             <img
               src={serverImg}
               alt="Secure Cloud Server"
@@ -29,24 +29,24 @@ const WhyChooseCrabCross = () => {
 
           <ul className="space-y-4 mb-8 text-gray-300 text-sm leading-relaxed">
             <li className="flex items-start gap-3">
-              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 flex-shrink-0"></span>
+              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 shrink-0"></span>
               Backed by years of expertise helping businesses secure, modernize,
               and scale across sectors including finance, education, and digital
               commerce.
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 flex-shrink-0"></span>
+              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 shrink-0"></span>
               A multidisciplinary team of certified cybersecurity specialists
               and cloud engineers dedicated to delivering robust, scalable, and
               compliant IT solutions.
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 flex-shrink-0"></span>
+              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 shrink-0"></span>
               Proven success in securing critical systems and improving
               operational resilience with measurable business outcomes.
             </li>
             <li className="flex items-start gap-3">
-              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 flex-shrink-0"></span>
+              <span className="mt-2 w-2 h-2 rounded-full bg-lime-500 shrink-0"></span>
               Strong partnerships with global technology innovators such as AWS,
               Microsoft, and Fortinet—ensuring cutting-edge and future-ready
               solutions.

@@ -95,7 +95,7 @@ const Insights = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-4 bg-gradient-to-r from-lime-500 to-lime-600 p-4 rounded-xl leading-tight">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-4 bg-linear-to-r from-lime-500 to-lime-600 p-4 rounded-xl leading-tight">
                     {insight.title}
                   </h3>
 
