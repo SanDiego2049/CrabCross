@@ -1,4 +1,3 @@
-// src/components/WhyChooseCrabCross.jsx
 import serverImg from "../../assets/why-choose-crabcross.jpg";
 
 const WhyChooseCrabCross = () => {
@@ -14,7 +13,7 @@ const WhyChooseCrabCross = () => {
               alt="Secure Cloud Server"
               className="relative w-full h-full object-cover rounded-2xl shadow-2xl"
             />
-            <div className="absolute top-5 left-5 bg-lime-600 text-white font-semibold px-5 py-2 rounded-lg shadow-md z-10">
+            <div className="absolute top-3 left-3 md:top-5 md:left-5 bg-lime-600 text-white font-semibold px-3 py-2 md:px-5 md:py-2 rounded-lg shadow-md z-10 text-xs md:text-sm lg:text-base max-w-[calc(100%-1.5rem)] md:max-w-[calc(100%-2.5rem)]">
               Why Choose CrabCross Technologies?
             </div>
           </div>
@@ -56,7 +55,7 @@ const WhyChooseCrabCross = () => {
           <a
             href="/Crab-Cross-Technology-company-profile.pdf"
             download="CrabCross_Company_Profile.pdf"
-            className=" px-6 py-3 bg-lime-500 hover:bg-lime-600 text-white rounded-full font-semibold transition-colors"
+            className="md:inline-block flex justify-center mx-auto px-6 py-3 bg-lime-500 hover:bg-lime-600 text-white rounded-full font-semibold transition-colors"
           >
             Download Profile
           </a>

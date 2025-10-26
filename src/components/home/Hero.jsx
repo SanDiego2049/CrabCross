@@ -36,34 +36,64 @@ const Hero = () => {
     },
   ];
 
+  const SLIDE_DURATION = 6000; // 6 seconds per slide
+
   const [index, setIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const bgRefs = useRef([]);
   const textRef = useRef(null);
-  const animTimeoutRef = useRef(null);
+  const progressTimerRef = useRef(null);
+  const slideTimerRef = useRef(null);
 
   // Accessibility: respect prefers-reduced-motion
   const prefersReducedMotion =
     typeof window !== "undefined" &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Initialize backgrounds
+  // Initialize backgrounds with proper z-index layering
   useEffect(() => {
     bgRefs.current.forEach((el, i) => {
       if (!el) return;
       el.style.opacity = i === index ? "1" : "0";
+      el.style.zIndex = i === index ? "2" : "1";
       el.style.transition = prefersReducedMotion
         ? "none"
-        : "opacity 0.8s ease-in-out";
+        : "opacity 1.2s ease-in-out";
     });
   }, []);
 
-  // Handle slide transitions
+  // Progress bar animation
   useEffect(() => {
-    // Clear any pending animations
-    if (animTimeoutRef.current) {
-      clearTimeout(animTimeoutRef.current);
+    if (prefersReducedMotion) {
+      setProgress(100);
+      return;
     }
 
+    setProgress(0);
+    const startTime = Date.now();
+
+    const updateProgress = () => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
+      setProgress(newProgress);
+
+      if (newProgress < 100) {
+        progressTimerRef.current = requestAnimationFrame(updateProgress);
+      }
+    };
+
+    progressTimerRef.current = requestAnimationFrame(updateProgress);
+
+    return () => {
+      if (progressTimerRef.current) {
+        cancelAnimationFrame(progressTimerRef.current);
+      }
+    };
+  }, [index, prefersReducedMotion]);
+
+  // Handle slide transitions
+  useEffect(() => {
     // Update backgrounds
     bgRefs.current.forEach((el, i) => {
       if (!el) return;
@@ -90,7 +120,7 @@ const Hero = () => {
     void textRef.current?.offsetHeight;
 
     // Animate in with stagger
-    animTimeoutRef.current = setTimeout(() => {
+    const timeout = setTimeout(() => {
       textNodes.forEach((node, i) => {
         node.style.transition =
           "opacity 0.7s ease-out, transform 0.7s ease-out";
@@ -101,11 +131,18 @@ const Hero = () => {
     }, 50);
 
     return () => {
-      if (animTimeoutRef.current) {
-        clearTimeout(animTimeoutRef.current);
-      }
+      clearTimeout(timeout);
     };
   }, [index, prefersReducedMotion]);
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, SLIDE_DURATION);
+
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
   // Pagination keyboard handler
   const onKeyNav = (e, i) => {
@@ -114,15 +151,6 @@ const Hero = () => {
       setIndex(i);
     }
   };
-
-  // Auto-advance slides
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, [slides.length]);
 
   return (
     <header
@@ -149,7 +177,7 @@ const Hero = () => {
               loading={i === 0 ? "eager" : "lazy"}
             />
             {/* Gradient overlay for text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80" />
           </div>
         ))}
       </div>
@@ -183,20 +211,11 @@ const Hero = () => {
               >
                 {slides[index].description}
               </p>
-              {/* <div data-anim className="mt-6 md:mt-8">
-                <a
-                  href={slides[index].cta.href}
-                  className="inline-flex items-center gap-2 md:gap-3 rounded-full border-2 border-lime-400 px-5 md:px-6 py-2.5 md:py-3 text-sm md:text-base text-lime-400 font-semibold hover:bg-lime-400 hover:text-black transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-black"
-                >
-                  <span>{slides[index].cta.text}</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-              </div> */}
             </div>
           </div>
 
           {/* Right pagination / progress */}
-          <div className="lg:col-span-5 flex justify-start lg:justify-end">
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="flex items-center gap-4 md:gap-6">
               {slides.map((s, i) => (
                 <button
@@ -214,14 +233,25 @@ const Hero = () => {
                   <span className="text-lg md:text-xl font-bold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span
-                    className={`h-0.5 transition-all duration-300 ${
-                      i === index
-                        ? "w-12 md:w-16 bg-lime-400"
-                        : "w-8 md:w-12 bg-gray-500"
-                    }`}
-                    aria-hidden="true"
-                  />
+
+                  {/* Progress bar */}
+                  <div className="relative h-0.5 w-12 md:w-16 bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className={`absolute inset-y-0 left-0 rounded-full ${
+                        i === index ? "bg-lime-400" : "bg-gray-500"
+                      }`}
+                      style={{
+                        width:
+                          i === index
+                            ? `${progress}%`
+                            : i < index
+                            ? "100%"
+                            : "0%",
+                        transition:
+                          i === index ? "none" : "width 0.3s ease-out",
+                      }}
+                    />
+                  </div>
                 </button>
               ))}
             </div>
@@ -243,10 +273,19 @@ const Hero = () => {
             {slides.map((_, i) => (
               <div
                 key={i}
-                className={`h-1 rounded-full transition-all duration-300 ${
-                  i === index ? "w-8 bg-lime-400" : "w-4 bg-gray-500"
-                }`}
-              />
+                className="relative flex-1 h-1 bg-gray-700 rounded-full overflow-hidden"
+              >
+                <div
+                  className={`h-full rounded-full ${
+                    i === index ? "bg-lime-400" : "bg-gray-500"
+                  }`}
+                  style={{
+                    width:
+                      i === index ? `${progress}%` : i < index ? "100%" : "0%",
+                    transition: i === index ? "none" : "width 0.3s ease-out",
+                  }}
+                />
+              </div>
             ))}
           </div>
         </div>

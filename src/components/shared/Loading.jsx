@@ -27,7 +27,7 @@ const Loading = () => {
       {/* Animated Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
         <div
-          className="h-full bg-gradient-to-r from-lime-400 to-lime-600 transition-all duration-300 ease-out"
+          className="h-full bg-linear-to-r from-lime-400 to-lime-600 transition-all duration-300 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -60,7 +60,7 @@ const Loading = () => {
       </div>
 
       {/* Hero Section Skeleton */}
-      <div className="relative h-[70vh] bg-gradient-to-b from-gray-900 to-black">
+      <div className="relative h-[70vh] bg-linear-to-b from-gray-900 to-black">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4 max-w-4xl mx-auto space-y-6">
             {/* Logo spinner */}
@@ -91,7 +91,7 @@ const Loading = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image skeleton */}
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-br from-lime-400/20 to-lime-600/20 rounded-2xl blur-lg" />
+            <div className="absolute -inset-1 bg-linear-to-br from-lime-400/20 to-lime-600/20 rounded-2xl blur-lg" />
             <div className="relative w-full h-80 bg-gray-800 rounded-2xl animate-pulse" />
           </div>
           {/* Text content skeleton */}

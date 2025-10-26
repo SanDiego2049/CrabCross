@@ -1,6 +1,4 @@
-// src/components/TechnologySolutions.jsx
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import ts1 from "../../assets/ts-1.jpg";
 import ts2 from "../../assets/ts-2.jpg";
 import ts3 from "../../assets/ts-3.jpg";
@@ -82,12 +80,29 @@ const TechnologySolutions = () => {
     if (prefersReducedMotion) return;
 
     let scrollPosition = 0;
-    const cardWidth = 300 + 24; // card width + gap
-    const totalWidth = cardWidth * cards.length;
+    let totalWidth = 0;
     let isPaused = false;
 
+    // Calculate total width dynamically based on actual card widths
+    const calculateWidth = () => {
+      const firstCard = container.children[0];
+      if (firstCard) {
+        const cardWidth = firstCard.offsetWidth;
+        const gap = 24; // gap-6 = 24px
+        totalWidth = (cardWidth + gap) * cards.length;
+      }
+    };
+
+    calculateWidth();
+
+    // Recalculate on resize
+    const handleResize = () => {
+      calculateWidth();
+    };
+    window.addEventListener("resize", handleResize);
+
     const animate = () => {
-      if (!isPaused) {
+      if (!isPaused && totalWidth > 0) {
         scrollPosition += 0.5;
         if (scrollPosition >= totalWidth) {
           scrollPosition = 0;
@@ -114,6 +129,7 @@ const TechnologySolutions = () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      window.removeEventListener("resize", handleResize);
       container.removeEventListener("mouseenter", handleMouseEnter);
       container.removeEventListener("mouseleave", handleMouseLeave);
     };
@@ -122,7 +138,7 @@ const TechnologySolutions = () => {
   return (
     <section
       id="technology-solutions"
-      className="w-full bg-gradient-to-b from-gray-950 via-black to-gray-950 text-white py-20 md:py-28 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="w-full bg-linear-to-b from-gray-950 via-black to-gray-950 text-white py-20 md:py-28 px-6 md:px-12 lg:px-20 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto text-center mb-14">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -144,10 +160,10 @@ const TechnologySolutions = () => {
           className="flex gap-6"
           style={{ willChange: "transform" }}
         >
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <div
               key={`card-${card.id}-${card.title}`}
-              className={`group min-w-[300px] md:min-w-[360px] rounded-2xl bg-gradient-to-br ${card.color} p-6  transition-all duration-500 hover:scale-[1.05]`}
+              className={`group min-w-[300px] md:min-w-[360px] rounded-2xl bg-linear-to-br ${card.color} p-6 transition-all duration-500 hover:scale-[1.05]`}
             >
               <div className="relative overflow-hidden rounded-xl mb-5">
                 <img
@@ -155,12 +171,12 @@ const TechnologySolutions = () => {
                   alt={card.title}
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <h3 className="text-2xl font-bold mt-9 mb-3 group-hover:text-lime-400 transition-colors duration-300">
                 {card.title}
               </h3>
-              <p className="text-gray-200 mb-6 leading-relaxed min-h-[3rem]">
+              <p className="text-gray-200 mb-6 leading-relaxed min-h-12">
                 {card.text}
               </p>
             </div>

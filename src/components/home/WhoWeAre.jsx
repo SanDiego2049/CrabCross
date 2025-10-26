@@ -56,7 +56,7 @@ const WhoWeAre = () => {
         {/* Image Section */}
         <div className="fade-up">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl opacity-40 group-hover:opacity-50 blur-lg transition-opacity duration-500" />
+            <div className="absolute -inset-1 bg-linear-to-br from-lime-400 to-lime-600 rounded-2xl opacity-40 group-hover:opacity-50 blur-lg transition-opacity duration-500" />
             <img
               src={whoWeAre}
               alt="Who We Are - CrabCross"
